@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/tasks/models/tasks.dart';
-import 'package:flutter_app/utils/color_utils.dart';
-import 'package:flutter_app/utils/date_util.dart';
-import 'package:flutter_app/utils/app_constant.dart';
+
+import '../../../utils/app_constant.dart';
+import '../../../utils/color_utils.dart';
+import '../../../utils/date_util.dart';
+import '../models/tasks.dart';
 
 class TaskCompletedRow extends StatelessWidget {
   final Tasks tasks;
-  static final dateLabel = "Date";
+  static const dateLabel = "Date";
   final List<String> labelNames = [];
 
-  TaskCompletedRow(this.tasks);
+  TaskCompletedRow(this.tasks, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class TaskCompletedRow extends StatelessWidget {
                         left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
                     child: Text(tasks.title,
                         key: ValueKey("task_completed_${tasks.id}"),
-                        style: TextStyle(
+                        style: const TextStyle(
                             decoration: TextDecoration.lineThrough,
                             fontSize: FONT_SIZE_TITLE,
                             fontWeight: FontWeight.bold)),
@@ -52,9 +53,9 @@ class TaskCompletedRow extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           getFormattedDate(tasks.dueDate),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.grey, fontSize: FONT_SIZE_DATE),
-                          key: Key(dateLabel),
+                          key: const Key(dateLabel),
                         ),
                         Expanded(
                           child: Column(
@@ -64,7 +65,7 @@ class TaskCompletedRow extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Text(tasks.projectName!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey,
                                           fontSize: FONT_SIZE_LABEL)),
                                   Container(
@@ -90,7 +91,7 @@ class TaskCompletedRow extends StatelessWidget {
             ),
           ),
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 width: 0.5,
@@ -111,7 +112,7 @@ class TaskCompletedRow extends StatelessWidget {
         padding: const EdgeInsets.only(
             left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
         child: Text(tasks.labelList.join("  "),
-            style: TextStyle(
+            style: const TextStyle(
                 decoration: TextDecoration.lineThrough,
                 fontSize: FONT_SIZE_LABEL)),
       );

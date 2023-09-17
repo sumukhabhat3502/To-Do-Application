@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/bloc_provider.dart';
-import 'package:flutter_app/pages/tasks/bloc/task_bloc.dart';
-import 'package:flutter_app/pages/tasks/models/tasks.dart';
-import 'package:flutter_app/pages/tasks/task_db.dart';
-import 'package:flutter_app/pages/tasks/task_completed/row_task_completed.dart';
+
+import '../../../bloc/bloc_provider.dart';
+import '../bloc/task_bloc.dart';
+import '../models/tasks.dart';
+import '../task_db.dart';
+import 'row_task_completed.dart';
 
 class TaskCompletedPage extends StatelessWidget {
   final TaskBloc _taskBloc = TaskBloc(TaskDB.get());
@@ -15,7 +16,7 @@ class TaskCompletedPage extends StatelessWidget {
       bloc: _taskBloc,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Task Completed"),
+          title: const Text("Task Completed"),
         ),
         body: StreamBuilder<List<Tasks>>(
             stream: _taskBloc.tasks,
@@ -36,13 +37,13 @@ class TaskCompletedPage extends StatelessWidget {
                                 _taskBloc.updateStatus(
                                     taskID, TaskStatus.PENDING);
                                 SnackBar snackbar =
-                                    SnackBar(content: Text("Task Undo"));
+                                    const SnackBar(content: Text("Task Undo"));
                                 ScaffoldMessenger.of(context).showSnackBar(snackbar);
                               }
                             },
                             secondaryBackground: Container(
                               color: Colors.grey,
-                              child: Align(
+                              child: const Align(
                                 alignment: Alignment(0.95, 0.0),
                                 child: Text("UNDO",
                                     style: TextStyle(
@@ -54,7 +55,7 @@ class TaskCompletedPage extends StatelessWidget {
                       );
                     });
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             }),
       ),

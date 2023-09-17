@@ -1,22 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/bloc_provider.dart';
-import 'package:flutter_app/models/priority.dart';
-import 'package:flutter_app/pages/home/home_bloc.dart';
-import 'package:flutter_app/pages/labels/label.dart';
-import 'package:flutter_app/pages/labels/label_db.dart';
-import 'package:flutter_app/pages/projects/project.dart';
-import 'package:flutter_app/pages/projects/project_db.dart';
-import 'package:flutter_app/pages/tasks/bloc/add_task_bloc.dart';
-import 'package:flutter_app/pages/tasks/task_db.dart';
-import 'package:flutter_app/utils/app_util.dart';
-import 'package:flutter_app/utils/color_utils.dart';
-import 'package:flutter_app/utils/date_util.dart';
-import 'package:flutter_app/utils/keys.dart';
-import 'package:flutter_app/utils/extension.dart';
-
+import 'package:to_do_manager/utils/extension.dart';
+import '../../bloc/bloc_provider.dart';
+import '../../models/priority.dart';
+import '../../utils/app_util.dart';
+import '../../utils/color_utils.dart';
+import '../../utils/date_util.dart';
+import '../../utils/keys.dart';
+import '../home/home_bloc.dart';
+import '../labels/label.dart';
+import '../labels/label_db.dart';
+import '../projects/project.dart';
+import '../projects/project_db.dart';
+import 'bloc/add_task_bloc.dart';
 import 'bloc/task_bloc.dart';
+import 'task_db.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
@@ -26,7 +24,7 @@ class AddTaskScreen extends StatelessWidget {
     AddTaskBloc createTaskBloc = BlocProvider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Add Task",
           key: ValueKey(AddTaskKeys.ADD_TASK_TITLE),
         ),
@@ -34,10 +32,11 @@ class AddTaskScreen extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Form(
+            key: _formState,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                  key: ValueKey(AddTaskKeys.ADD_TITLE),
+                  key: const ValueKey(AddTaskKeys.ADD_TITLE),
                   validator: (value) {
                     var msg = value!.isEmpty ? "Title Cannot be Empty" : null;
                     return msg;
@@ -47,14 +46,13 @@ class AddTaskScreen extends StatelessWidget {
                   },
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(hintText: "Title")),
+                  decoration: const InputDecoration(hintText: "Title")),
             ),
-            key: _formState,
           ),
           ListTile(
-            key: ValueKey("addProject"),
-            leading: Icon(Icons.book),
-            title: Text("Project"),
+            key: const ValueKey("addProject"),
+            leading: const Icon(Icons.book),
+            title: const Text("Project"),
             subtitle: StreamBuilder<Project>(
               stream: createTaskBloc.selectedProject,
               initialData: Project.getInbox(),
@@ -65,8 +63,8 @@ class AddTaskScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.calendar_today),
-            title: Text("Due Date"),
+            leading: const Icon(Icons.calendar_today),
+            title: const Text("Due Date"),
             subtitle: StreamBuilder<int>(
               stream: createTaskBloc.dueDateSelected,
               initialData: DateTime.now().millisecondsSinceEpoch,
@@ -78,8 +76,8 @@ class AddTaskScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.flag),
-            title: Text("Priority"),
+            leading: const Icon(Icons.flag),
+            title: const Text("Priority"),
             subtitle: StreamBuilder<Status>(
               stream: createTaskBloc.prioritySelected,
               initialData: Status.PRIORITY_4,
@@ -91,8 +89,8 @@ class AddTaskScreen extends StatelessWidget {
             },
           ),
           ListTile(
-              leading: Icon(Icons.label),
-              title: Text("Labels"),
+              leading: const Icon(Icons.label),
+              title: const Text("Labels"),
               subtitle: StreamBuilder<String>(
                 stream: createTaskBloc.labelSelection,
                 initialData: "No Labels",
@@ -102,17 +100,17 @@ class AddTaskScreen extends StatelessWidget {
                 _showLabelsDialog(context);
               }),
           ListTile(
-            leading: Icon(Icons.mode_comment),
-            title: Text("Comments"),
-            subtitle: Text("No Comments"),
+            leading: const Icon(Icons.mode_comment),
+            title: const Text("Comments"),
+            subtitle: const Text("No Comments"),
             onTap: () {
               showSnackbar(context, "Coming Soon");
             },
           ),
           ListTile(
-            leading: Icon(Icons.timer),
-            title: Text("Reminder"),
-            subtitle: Text("No Reminder"),
+            leading: const Icon(Icons.timer),
+            title: const Text("Reminder"),
+            subtitle: const Text("No Reminder"),
             onTap: () {
               showSnackbar(context, "Coming Soon");
             },
@@ -120,8 +118,8 @@ class AddTaskScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          key: ValueKey(AddTaskKeys.ADD_TASK),
-          child: Icon(Icons.send, color: Colors.white),
+          key: const ValueKey(AddTaskKeys.ADD_TASK),
+          child: const Icon(Icons.send, color: Colors.white),
           onPressed: () {
             if (_formState.currentState!.validate()) {
               _formState.currentState!.save();
@@ -176,7 +174,7 @@ class AddTaskScreen extends StatelessWidget {
         builder: (BuildContext dialogContext) {
           return StreamBuilder<List<Project>>(
               stream: createTaskBloc.projects,
-              initialData: <Project>[],
+              initialData: const <Project>[],
               builder: (context, snapshot) {
                 return SimpleDialog(
                   title: const Text('Select Project'),
@@ -194,7 +192,7 @@ class AddTaskScreen extends StatelessWidget {
         builder: (BuildContext context) {
           return StreamBuilder<List<Label>>(
               stream: createTaskBloc.labels,
-              initialData: <Label>[],
+              initialData: const <Label>[],
               builder: (context, snapshot) {
                 return SimpleDialog(
                   title: const Text('Select Labels'),
@@ -211,9 +209,9 @@ class AddTaskScreen extends StatelessWidget {
     List<Project> projectList,
   ) {
     List<Widget> projects = [];
-    projectList.forEach((project) {
+    for (var project in projectList) {
       projects.add(ListTile(
-        leading: Container(
+        leading: SizedBox(
           width: 12.0,
           height: 12.0,
           child: CircleAvatar(
@@ -226,7 +224,7 @@ class AddTaskScreen extends StatelessWidget {
           Navigator.pop(context);
         },
       ));
-    });
+    }
     return projects;
   }
 
@@ -236,19 +234,19 @@ class AddTaskScreen extends StatelessWidget {
     List<Label> labelList,
   ) {
     List<Widget> labels = [];
-    labelList.forEach((label) {
+    for (var label in labelList) {
       labels.add(ListTile(
         leading: Icon(Icons.label, color: Color(label.colorValue), size: 18.0),
         title: Text(label.name),
         trailing: createTaskBloc.selectedLabels.contains(label)
-            ? Icon(Icons.close)
-            : Container(width: 18.0, height: 18.0),
+            ? const Icon(Icons.close)
+            : const SizedBox(width: 18.0, height: 18.0),
         onTap: () {
           createTaskBloc.labelAddOrRemove(label);
           Navigator.pop(context);
         },
       ));
-    });
+    }
     return labels;
   }
 
@@ -276,7 +274,7 @@ class AddTaskScreen extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.all(12.0),
                 child: Text(priorityText[status.index],
-                    style: TextStyle(fontSize: 18.0)),
+                    style: const TextStyle(fontSize: 18.0)),
               ),
             )));
   }

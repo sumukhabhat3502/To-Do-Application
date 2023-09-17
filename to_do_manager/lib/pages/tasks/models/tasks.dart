@@ -1,14 +1,18 @@
-import 'package:flutter_app/models/priority.dart';
+
+
+// ignore_for_file: constant_identifier_names, annotate_overrides, hash_and_equals, avoid_renaming_method_parameters
+
+import '../../../models/priority.dart';
 
 class Tasks {
-  static final tblTask = "Tasks";
-  static final dbId = "id";
-  static final dbTitle = "title";
-  static final dbComment = "comment";
-  static final dbDueDate = "dueDate";
-  static final dbPriority = "priority";
-  static final dbStatus = "status";
-  static final dbProjectID = "projectId";
+  static const tblTask = "Tasks";
+  static const dbId = "id";
+  static const dbTitle = "title";
+  static const dbComment = "comment";
+  static const dbDueDate = "dueDate";
+  static const dbPriority = "priority";
+  static const dbStatus = "status";
+  static const dbProjectID = "projectId";
 
   String title, comment;
   String? projectName;
@@ -25,10 +29,10 @@ class Tasks {
     this.dueDate = -1,
     this.priority = Status.PRIORITY_4,
   }) {
-    if (this.dueDate == -1) {
-      this.dueDate = DateTime.now().millisecondsSinceEpoch;
+    if (dueDate == -1) {
+      dueDate = DateTime.now().millisecondsSinceEpoch;
     }
-    this.tasksStatus = TaskStatus.PENDING;
+    tasksStatus = TaskStatus.PENDING;
   }
 
   bool operator ==(o) => o is Tasks && o.id == id;
@@ -42,8 +46,8 @@ class Tasks {
     this.priority = Status.PRIORITY_4,
     this.tasksStatus = TaskStatus.PENDING,
   }) {
-    if (this.dueDate == -1) {
-      this.dueDate = DateTime.now().millisecondsSinceEpoch;
+    if (dueDate == -1) {
+      dueDate = DateTime.now().millisecondsSinceEpoch;
     }
   }
 

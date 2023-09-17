@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/tasks/models/tasks.dart';
-import 'package:flutter_app/utils/color_utils.dart';
-import 'package:flutter_app/utils/date_util.dart';
-import 'package:flutter_app/utils/app_constant.dart';
+import 'package:to_do_manager/utils/date_util.dart';
+
+import '../../utils/app_constant.dart';
+import '../../utils/color_utils.dart';
+import 'models/tasks.dart';
 
 class TaskRow extends StatelessWidget {
   final Tasks tasks;
@@ -40,7 +41,7 @@ class TaskRow extends StatelessWidget {
                         left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
                     child: Text(tasks.title,
                         key: ValueKey("taskTitle_${tasks.id}"),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: FONT_SIZE_TITLE,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -52,7 +53,7 @@ class TaskRow extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           getFormattedDate(tasks.dueDate),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.grey, fontSize: FONT_SIZE_DATE),
                           key: ValueKey("taskDueDate_${tasks.id}"),
                         ),
@@ -66,7 +67,7 @@ class TaskRow extends StatelessWidget {
                                   Text(tasks.projectName!,
                                       key: ValueKey(
                                           "taskProjectName_${tasks.id}"),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey,
                                           fontSize: FONT_SIZE_LABEL)),
                                   Container(
@@ -92,7 +93,7 @@ class TaskRow extends StatelessWidget {
             ),
           ),
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 width: 0.5,
@@ -114,7 +115,7 @@ class TaskRow extends StatelessWidget {
             left: PADDING_SMALL, bottom: PADDING_VERY_SMALL),
         child: Text(tasks.labelList.join("  "),
             key: ValueKey("taskLabels_${tasks.id}"),
-            style: TextStyle(fontSize: FONT_SIZE_LABEL)),
+            style: const TextStyle(fontSize: FONT_SIZE_LABEL)),
       );
     }
   }
