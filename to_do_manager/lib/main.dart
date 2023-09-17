@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFFDE4435);
+    const primaryColor = Colors.blue;
     final theme = ThemeData(
       primaryColor: primaryColor,
       visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.orange,
+          secondary: Colors.blue,
           primary: primaryColor,
         ),
       ),

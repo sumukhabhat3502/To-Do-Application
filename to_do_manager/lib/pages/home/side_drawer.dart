@@ -23,7 +23,7 @@ class SideDrawer extends StatelessWidget {
           UserAccountsDrawerHeader(
             accountName: const Text("Sumukha"),
             accountEmail: const Text("sumukhabhat02@gmail.com"),
-            otherAccountsPictures: <Widget>[
+            otherAccountsPictures: const <Widget>[
               // IconButton(
               //     icon: const Icon(
               //       Icons.info,
