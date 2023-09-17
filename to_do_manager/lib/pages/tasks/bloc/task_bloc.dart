@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'dart:collection';
 
-import 'package:flutter_app/bloc/bloc_provider.dart';
-import 'package:flutter_app/pages/tasks/task_db.dart';
-import 'package:flutter_app/pages/tasks/models/tasks.dart';
+import '../../../bloc/bloc_provider.dart';
+import '../models/tasks.dart';
+import '../task_db.dart';
+
+
 
 class TaskBloc implements BlocBase {
   ///
