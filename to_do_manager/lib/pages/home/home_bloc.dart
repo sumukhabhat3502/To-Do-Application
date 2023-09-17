@@ -1,21 +1,20 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
-
-
-import 'package:flutter_app/pages/tasks/bloc/task_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../bloc/bloc_provider.dart';
+import '../tasks/bloc/task_bloc.dart';
 
 class HomeBloc implements BlocBase {
-  StreamController<String> _titleController = BehaviorSubject<String>();
+  final StreamController<String> _titleController = BehaviorSubject<String>();
 
   Stream<String> get title => _titleController.stream;
 
-  StreamController<Filter> _filterController = BehaviorSubject<Filter>();
+  final StreamController<Filter> _filterController = BehaviorSubject<Filter>();
 
   Stream<Filter> get filter => _filterController.stream;
 
-  StreamController<SCREEN> _screenController = BehaviorSubject<SCREEN>();
+  final StreamController<SCREEN> _screenController = BehaviorSubject<SCREEN>();
 
   Stream<SCREEN> get screens => _screenController.stream;
 
