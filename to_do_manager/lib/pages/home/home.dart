@@ -1,11 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:to_do_manager/pages/home/side_drawer.dart';
 import 'package:to_do_manager/utils/extension.dart';
-
 import '../../bloc/bloc_provider.dart';
 import '../../utils/keys.dart';
 import '../tasks/add_task.dart';
