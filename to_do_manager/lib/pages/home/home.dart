@@ -1,6 +1,19 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:to_do_manager/pages/home/side_drawer.dart';
+import 'package:to_do_manager/utils/extension.dart';
+
+import '../../bloc/bloc_provider.dart';
+import '../../utils/keys.dart';
+import '../tasks/add_task.dart';
+import '../tasks/bloc/task_bloc.dart';
+import '../tasks/task_completed/task_complted.dart';
+import '../tasks/task_db.dart';
+import '../tasks/task_widgets.dart';
+import 'home_bloc.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -27,7 +40,7 @@ class HomePage extends StatelessWidget {
             builder: (context, snapshot) {
               return Text(
                 snapshot.data!,
-                key: ValueKey(HomePageKeys.HOME_TITLE),
+                key: const ValueKey(HomePageKeys.HOME_TITLE),
               );
             }),
         actions: <Widget>[buildPopupMenu(context)],
@@ -36,14 +49,14 @@ class HomePage extends StatelessWidget {
             : new IconButton(
                 icon: new Icon(
                   Icons.menu,
-                  key: ValueKey(SideDrawerKeys.DRAWER),
+                  key: const ValueKey(SideDrawerKeys.DRAWER),
                 ),
                 onPressed: () => _scaffoldKey.currentState?.openDrawer(),
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        key: ValueKey(HomePageKeys.ADD_NEW_TASK_BUTTON),
-        child: Icon(
+        key: const ValueKey(HomePageKeys.ADD_NEW_TASK_BUTTON),
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -66,7 +79,7 @@ class HomePage extends StatelessWidget {
   Widget buildPopupMenu(BuildContext context) {
     return PopupMenuButton<MenuItem>(
       icon: Icon(Icons.adaptive.more),
-      key: ValueKey(CompletedTaskPageKeys.POPUP_ACTION),
+      key: const ValueKey(CompletedTaskPageKeys.POPUP_ACTION),
       onSelected: (MenuItem result) async {
         switch (result) {
           case MenuItem.TASK_COMPLETED:
@@ -79,7 +92,7 @@ class HomePage extends StatelessWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuItem>>[
         const PopupMenuItem<MenuItem>(
           value: MenuItem.TASK_COMPLETED,
-          child: const Text(
+          child:  Text(
             'Completed Tasks',
             key: ValueKey(CompletedTaskPageKeys.COMPLETED_TASKS),
           ),
