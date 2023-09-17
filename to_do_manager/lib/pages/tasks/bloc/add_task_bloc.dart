@@ -3,6 +3,12 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../bloc/bloc_provider.dart';
+import '../../../models/priority.dart';
+import '../../labels/label.dart';
+import '../../labels/label_db.dart';
+import '../../projects/project.dart';
+import '../../projects/project_db.dart';
+import '../models/tasks.dart';
 import '../task_db.dart';
 
 class AddTaskBloc implements BlocBase {
@@ -19,33 +25,33 @@ class AddTaskBloc implements BlocBase {
     _prioritySelected.add(lastPrioritySelection);
   }
 
-  BehaviorSubject<List<Project>> _projectController =
+  final BehaviorSubject<List<Project>> _projectController =
       BehaviorSubject<List<Project>>();
 
   Stream<List<Project>> get projects => _projectController.stream;
 
-  BehaviorSubject<List<Label>> _labelController =
+  final BehaviorSubject<List<Label>> _labelController =
       BehaviorSubject<List<Label>>();
 
   Stream<List<Label>> get labels => _labelController.stream;
 
-  BehaviorSubject<Project> _projectSelection = BehaviorSubject<Project>();
+  final BehaviorSubject<Project> _projectSelection = BehaviorSubject<Project>();
 
   Stream<Project> get selectedProject => _projectSelection.stream;
 
-  BehaviorSubject<String> _labelSelected = BehaviorSubject<String>();
+  final BehaviorSubject<String> _labelSelected = BehaviorSubject<String>();
 
   Stream<String> get labelSelection => _labelSelected.stream;
 
-  List<Label> _selectedLabelList = [];
+  final List<Label> _selectedLabelList = [];
 
   List<Label> get selectedLabels => _selectedLabelList;
 
-  BehaviorSubject<Status> _prioritySelected = BehaviorSubject<Status>();
+  final BehaviorSubject<Status> _prioritySelected = BehaviorSubject<Status>();
 
   Stream<Status> get prioritySelected => _prioritySelected.stream;
 
-  BehaviorSubject<int> _dueDateSelected = BehaviorSubject<int>();
+  final BehaviorSubject<int> _dueDateSelected = BehaviorSubject<int>();
 
   Stream<int> get dueDateSelected => _dueDateSelected.stream;
 
@@ -88,12 +94,12 @@ class AddTaskBloc implements BlocBase {
 
   void _buildLabelsString() {
     List<String> selectedLabelNameList = [];
-    _selectedLabelList.forEach((label) {
+    for (var label in _selectedLabelList) {
       selectedLabelNameList.add("@${label.name}");
-    });
+    }
     String labelJoinString = selectedLabelNameList.join("  ");
     String displayLabels =
-        labelJoinString.length == 0 ? "No Labels" : labelJoinString;
+        labelJoinString.isEmpty ? "No Labels" : labelJoinString;
     _labelSelected.add(displayLabels);
   }
 
@@ -106,9 +112,9 @@ class AddTaskBloc implements BlocBase {
     return ZipStream.zip3(selectedProject, dueDateSelected, prioritySelected,
         (Project project, int dueDateSelected, Status status) {
       List<int> labelIds = [];
-      _selectedLabelList.forEach((label) {
+      for (var label in _selectedLabelList) {
         labelIds.add(label.id!);
-      });
+      }
 
       var task = Tasks.create(
         title: updateTitle,

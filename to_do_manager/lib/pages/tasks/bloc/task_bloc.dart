@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import '../../../bloc/bloc_provider.dart';
 import '../models/tasks.dart';
@@ -10,15 +11,15 @@ class TaskBloc implements BlocBase {
   ///
   /// Synchronous Stream to handle the provision of the movie genres
   ///
-  StreamController<List<Tasks>> _taskController =
+  final StreamController<List<Tasks>> _taskController =
       StreamController<List<Tasks>>.broadcast();
 
   Stream<List<Tasks>> get tasks => _taskController.stream;
 
   ///
-  StreamController<int> _cmdController = StreamController<int>.broadcast();
+  final StreamController<int> _cmdController = StreamController<int>.broadcast();
 
-  TaskDB _taskDb;
+  final TaskDB _taskDb;
   late List<Tasks> _tasksList;
   late Filter _lastFilterStatus;
 
