@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_manager/utils/extension.dart';
+
+import '../../bloc/bloc_provider.dart';
+import '../../utils/collapsable_expand_tile.dart';
+import '../../utils/color_utils.dart';
+import '../../utils/keys.dart';
+import '../home/home_bloc.dart';
+import 'project.dart';
+import 'project_bloc.dart';
 
 class AddProject extends StatelessWidget {
   final expansionTile = GlobalKey<CollapsibleExpansionTileState>();
@@ -11,14 +20,14 @@ class AddProject extends StatelessWidget {
     String projectName = "";
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Add Project",
           key: ValueKey(AddProjectKeys.TITLE_ADD_PROJECT),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: ValueKey(AddProjectKeys.ADD_PROJECT_BUTTON),
-          child: Icon(
+          key: const ValueKey(AddProjectKeys.ADD_PROJECT_BUTTON),
+          child: const Icon(
             Icons.send,
             color: Colors.white,
           ),
@@ -40,11 +49,12 @@ class AddProject extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Form(
+            key: _formState,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                key: ValueKey(AddProjectKeys.TEXT_FORM_PROJECT_NAME),
-                decoration: InputDecoration(hintText: "Project Name"),
+                key: const ValueKey(AddProjectKeys.TEXT_FORM_PROJECT_NAME),
+                decoration: const InputDecoration(hintText: "Project Name"),
                 maxLength: 20,
                 validator: (value) {
                   return value!.isEmpty ? "Project name cannot be empty" : null;
@@ -54,7 +64,6 @@ class AddProject extends StatelessWidget {
                 },
               ),
             ),
-            key: _formState,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
@@ -85,9 +94,9 @@ class AddProject extends StatelessWidget {
 
   List<Widget> buildMaterialColors(ProjectBloc projectBloc) {
     List<Widget> projectWidgetList = [];
-    colorsPalettes.forEach((colors) {
+    for (var colors in colorsPalettes) {
       projectWidgetList.add(ListTile(
-        leading: Container(
+        leading: SizedBox(
           width: 12.0,
           height: 12.0,
           child: CircleAvatar(
@@ -102,7 +111,7 @@ class AddProject extends StatelessWidget {
           );
         },
       ));
-    });
+    }
     return projectWidgetList;
   }
 }

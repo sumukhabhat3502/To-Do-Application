@@ -1,4 +1,8 @@
 
+import 'package:sqflite/sqflite.dart';
+import '../../db/app_db.dart';
+import 'project.dart';
+
 class ProjectDB {
   static final ProjectDB _projectDb = ProjectDB._internal(AppDatabase.get());
 
