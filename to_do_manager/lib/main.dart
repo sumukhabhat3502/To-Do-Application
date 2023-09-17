@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/bloc_provider.dart';
-import 'package:flutter_app/pages/about/about_us.dart';
-import 'package:flutter_app/pages/home/home.dart';
-import 'package:flutter_app/pages/home/home_bloc.dart';
-import 'package:flutter_app/pages/home/side_drawer.dart';
-import 'package:flutter_app/pages/labels/label_widget.dart';
-import 'package:flutter_app/pages/projects/project_widget.dart';
-import 'package:flutter_app/pages/tasks/add_task.dart';
-import 'package:flutter_app/pages/tasks/task_completed/task_complted.dart';
-import 'package:flutter_app/utils/extension.dart';
+
+import 'bloc/bloc_provider.dart';
 
 void main() => runApp(MyApp());
 
