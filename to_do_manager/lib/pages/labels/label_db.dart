@@ -1,5 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 
+import '../../db/app_db.dart';
+import 'label.dart';
+
 class LabelDB {
   static final LabelDB _labelDb = LabelDB._internal(AppDatabase.get());
 
@@ -16,7 +19,7 @@ class LabelDB {
     var db = await _appDatabase.getDb();
     var result = await db.rawQuery(
         "SELECT * FROM ${Label.tblLabel} WHERE ${Label.dbName} LIKE '${label.name}'");
-    if (result.length == 0) {
+    if (result.isEmpty) {
       return await updateLabels(label).then((value) {
         return false;
       });

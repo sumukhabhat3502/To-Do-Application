@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_manager/utils/extension.dart';
+
+import '../../bloc/bloc_provider.dart';
+import '../../utils/keys.dart';
+import '../home/home_bloc.dart';
+import '../tasks/bloc/task_bloc.dart';
+import 'add_label.dart';
+import 'label.dart';
+import 'label_bloc.dart';
+import 'label_db.dart';
 
 class LabelPage extends StatelessWidget {
   @override
@@ -10,7 +20,7 @@ class LabelPage extends StatelessWidget {
         if (snapshot.hasData) {
           return LabelExpansionTileWidget(snapshot.data!);
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -27,9 +37,9 @@ class LabelExpansionTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      key: ValueKey(SideDrawerKeys.DRAWER_LABELS),
-      leading: Icon(Icons.label),
-      title: Text("Labels",
+      key: const ValueKey(SideDrawerKeys.DRAWER_LABELS),
+      leading: const Icon(Icons.label),
+      title: const Text("Labels",
           style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
       children: buildLabels(context),
     );
@@ -38,10 +48,12 @@ class LabelExpansionTileWidget extends StatelessWidget {
   List<Widget> buildLabels(BuildContext context) {
     final _labelBloc = context.bloc<LabelBloc>();
     List<Widget> projectWidgetList = [];
-    _labels.forEach((label) => projectWidgetList.add(LabelRow(label)));
+    for (var label in _labels) {
+      projectWidgetList.add(LabelRow(label));
+    }
     projectWidgetList.add(ListTile(
-        leading: Icon(Icons.add),
-        title: Text(
+        leading: const Icon(Icons.add),
+        title: const Text(
           "Add Label",
           key: ValueKey(SideDrawerKeys.ADD_LABEL),
         ),
