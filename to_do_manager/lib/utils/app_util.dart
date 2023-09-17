@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/utils/app_constant.dart';
-import 'package:flutter_app/utils/keys.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'app_constant.dart';
+import 'keys.dart';
 
 showSnackbar(context, String message, {MaterialColor? materialColor}) {
   if (message.isEmpty) return;
@@ -31,8 +32,8 @@ class MessageInCenterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(_message,
-          key: ValueKey(HomePageKeys.MESSAGE_IN_CENTER),
-          style: TextStyle(fontSize: FONT_MEDIUM, color: Colors.black)),
+          key: const ValueKey(HomePageKeys.MESSAGE_IN_CENTER),
+          style: const TextStyle(fontSize: FONT_MEDIUM, color: Colors.black)),
     );
   }
 }

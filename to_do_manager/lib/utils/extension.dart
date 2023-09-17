@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/bloc_provider.dart';
-import 'package:flutter_app/pages/home/home_bloc.dart';
+
+import '../bloc/bloc_provider.dart';
+import '../pages/home/home_bloc.dart';
 
 extension NavigatorExt on BuildContext {
   void safePop() {
