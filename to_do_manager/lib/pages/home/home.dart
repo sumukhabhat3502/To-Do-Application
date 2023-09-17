@@ -16,7 +16,7 @@ import 'home_bloc.dart';
 
 class HomePage extends StatelessWidget {
   final TaskBloc _taskBloc = TaskBloc(TaskDB.get());
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +44,25 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[buildPopupMenu(context)],
         leading: isWiderScreen
             ? null
-            : new IconButton(
-                icon: new Icon(
+            : IconButton(
+                icon:  const Icon(
                   Icons.menu,
-                  key: const ValueKey(SideDrawerKeys.DRAWER),
+                  key: ValueKey(SideDrawerKeys.DRAWER),
                 ),
                 onPressed: () => _scaffoldKey.currentState?.openDrawer(),
               ),
       ),
       floatingActionButton: FloatingActionButton(
         key: const ValueKey(HomePageKeys.ADD_NEW_TASK_BUTTON),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
         backgroundColor: Colors.orange,
         onPressed: () async {
           await context.adaptiveNavigate(SCREEN.ADD_TASK, AddTaskProvider());
           _taskBloc.refresh();
         },
+        child:  const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       drawer: isWiderScreen ? null : SideDrawer(),
       body: BlocProvider(

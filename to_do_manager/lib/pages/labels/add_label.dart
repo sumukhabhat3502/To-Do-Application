@@ -1,6 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:to_do_manager/utils/extension.dart';
+
+import '../../bloc/bloc_provider.dart';
+import '../../utils/app_util.dart';
+import '../../utils/collapsable_expand_tile.dart';
+import '../../utils/color_utils.dart';
+import '../../utils/keys.dart';
+import '../home/home_bloc.dart';
+import 'label.dart';
+import 'label_bloc.dart';
 
 class AddLabel extends StatelessWidget {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
@@ -26,14 +36,14 @@ class AddLabel extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Add Label",
           key: ValueKey(AddLabelKeys.TITLE_ADD_LABEL),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: ValueKey(AddLabelKeys.ADD_LABEL_BUTTON),
-          child: Icon(
+          key: const ValueKey(AddLabelKeys.ADD_LABEL_BUTTON),
+          child: const Icon(
             Icons.send,
             color: Colors.white,
           ),
@@ -50,11 +60,12 @@ class AddLabel extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Form(
+            key: _formState,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
-                key: ValueKey(AddLabelKeys.TEXT_FORM_LABEL_NAME),
-                decoration: InputDecoration(hintText: "Label Name"),
+                key: const ValueKey(AddLabelKeys.TEXT_FORM_LABEL_NAME),
+                decoration: const InputDecoration(hintText: "Label Name"),
                 maxLength: 20,
                 validator: (value) {
                   return value!.isEmpty ? "Label Cannot be empty" : null;
@@ -64,7 +75,6 @@ class AddLabel extends StatelessWidget {
                 },
               ),
             ),
-            key: _formState,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
@@ -93,7 +103,7 @@ class AddLabel extends StatelessWidget {
 
   List<Widget> buildMaterialColors(LabelBloc labelBloc) {
     List<Widget> projectWidgetList = [];
-    colorsPalettes.forEach((colors) {
+    for (var colors in colorsPalettes) {
       projectWidgetList.add(ListTile(
         leading: Icon(
           Icons.label,
@@ -108,7 +118,7 @@ class AddLabel extends StatelessWidget {
           );
         },
       ));
-    });
+    }
     return projectWidgetList;
   }
 }

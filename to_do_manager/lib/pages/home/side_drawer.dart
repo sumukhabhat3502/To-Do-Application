@@ -1,4 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_manager/utils/extension.dart';
+import '../../bloc/bloc_provider.dart';
+import '../../utils/keys.dart';
+import '../labels/label_bloc.dart';
+import '../labels/label_db.dart';
+import '../labels/label_widget.dart';
+import '../projects/project.dart';
+import '../projects/project_bloc.dart';
+import '../projects/project_db.dart';
+import '../projects/project_widget.dart';
+import '../tasks/bloc/task_bloc.dart';
+import 'home_bloc.dart';
 
 class SideDrawer extends StatelessWidget {
   @override
@@ -6,31 +18,31 @@ class SideDrawer extends StatelessWidget {
     HomeBloc homeBloc = BlocProvider.of(context);
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(0.0),
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Burhanuddin Rashid"),
-            accountEmail: Text("burhanrashid5253@gmail.com"),
+            accountName: const Text("Burhanuddin Rashid"),
+            accountEmail: const Text("burhanrashid5253@gmail.com"),
             otherAccountsPictures: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.info,
-                    color: Colors.white,
-                    size: 36.0,
-                  ),
-                  onPressed: () async {
-                    await context.adaptiveNavigate(
-                        SCREEN.ABOUT, AboutUsScreen());
-                  })
+              // IconButton(
+              //     icon: const Icon(
+              //       Icons.info,
+              //       color: Colors.white,
+              //       size: 36.0,
+              //     ),
+              //     onPressed: () async {
+              //       await context.adaptiveNavigate(
+              //           SCREEN.ABOUT, AboutUsScreen());
+              //     })
             ],
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              backgroundImage: AssetImage("assets/profile_pic.jpg"),
+              backgroundImage: const AssetImage("assets/profile_pic.jpg"),
             ),
           ),
           ListTile(
-              leading: Icon(Icons.inbox),
-              title: Text(
+              leading: const Icon(Icons.inbox),
+              title: const Text(
                 "Inbox",
                 key: ValueKey(SideDrawerKeys.INBOX),
               ),
@@ -45,8 +57,8 @@ class SideDrawer extends StatelessWidget {
                 homeBloc.applyFilter("Today", Filter.byToday());
                 context.safePop();
               },
-              leading: Icon(Icons.calendar_today),
-              title: Text(
+              leading: const Icon(Icons.calendar_today),
+              title: const Text(
                 "Today",
                 key: ValueKey(SideDrawerKeys.TODAY),
               )),
@@ -55,8 +67,8 @@ class SideDrawer extends StatelessWidget {
               homeBloc.applyFilter("Next 7 Days", Filter.byNextWeek());
               context.safePop();
             },
-            leading: Icon(Icons.calendar_today),
-            title: Text(
+            leading: const Icon(Icons.calendar_today),
+            title: const Text(
               "Next 7 Days",
               key: ValueKey(SideDrawerKeys.NEXT_7_DAYS),
             ),
